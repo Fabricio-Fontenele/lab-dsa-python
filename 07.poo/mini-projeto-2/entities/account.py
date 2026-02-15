@@ -9,7 +9,7 @@ from abc import ABC, abstractmethod
 from datetime import datetime
 
 # Importa exceção personalizada para saldo insuficiente
-from utils.exceptions import SaldoInsuficienteError
+from utils.exceptions import InsufficientBalanceError
 
 
 # Define a classe abstrata Conta, que serve como base para outros tipos de contas
@@ -126,7 +126,7 @@ class ContaCorrente(BankAccount):
 
         # Caso o valor do saque ultrapasse o saldo disponível
         if amount > available_balance:
-            raise SaldoInsuficienteError(
+            raise InsufficientBalanceError(
                 available_balance, amount, "Saldo e limite insuficientes."
             )
 
@@ -156,7 +156,7 @@ class ContaPoupanca(BankAccount):
 
         # Verifica se há saldo suficiente
         if amount > self._account_balance:
-            raise SaldoInsuficienteError(self._account_balance, amount)
+            raise InsufficientBalanceError(self._account_balance, amount)
 
         # Deduz o valor do saldo
         self._account_balance -= amount
